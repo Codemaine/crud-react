@@ -1,26 +1,52 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Functions from './Functions';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      number: 0
+    };
+  }
+
+  AddNumber = (e) => {
+    this.setState({number: this.state.number + 1})
+  }
+
+  RemoveNumber = (e) => {
+    this.setState({number: this.state.number - 1})
+    if (this.state.number === 0){
+      console.log('The number is to low to reduce')
+      this.setState({number: 0})
+      return false
+    }
+  }
+
+  ResetNumber = (e) => {
+    this.setState({number: 0})
+    if ( this.state.number === 0 ){
+      console.log('The number is already '+this.state.number)
+    }
+  }
+
+  RandomNumber = (e) => {
+    this.setState({number: Math.floor(Math.random() *1000 )})
+  }
+
+  render(){  
+  return(
+    <div>
+      <h1>Counter: {this.state.number}</h1>
+      <hr />
+      <button onClick={this.AddNumber}>Add</button>
+      <button onClick={this.RemoveNumber}>Remove</button>
+      <button onClick={this.RandomNumber}>Random</button>
+      <button onClick={this.ResetNumber}>Reset</button>
+      <Functions />
     </div>
-  );
+  )
+  }
 }
 
 export default App;
